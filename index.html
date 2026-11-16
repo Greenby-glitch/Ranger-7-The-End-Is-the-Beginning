@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#080711">
+    <meta name="ai-use-disclosure" content="Selected code AI-assisted and human-reviewed; EBA guide and EBA-07 emblem AI-generated. Team research, narration and scene planning based on credited NASA/JPL sources.">
+    <meta name="description" content="An interactive book about NASA's Ranger 7 mission. Discover its engineering, its last photographs and the beginning of its legacy.">
+    <title>Ranger 7: The End Is the Beginning</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/scenes.js" defer></script>
+    <script src="js/archive.js" defer></script>
+    <script src="js/resources.js" defer></script>
+    <script src="js/glossary.js" defer></script>
+    <script src="js/visuals.js" defer></script>
+    <script src="assets/nasa/moon-texture-data.js" defer></script>
+    <script src="js/moon.js" defer></script>
+    <script src="js/approach.js" defer></script>
+    <script src="js/guide.js" defer></script>
+    <script src="js/quiz.js" defer></script>
+    <script src="js/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div id="main-content" tabindex="-1"></div>
+    
+    <section class="viewport landing active" id="landing" aria-label="Welcome">
+      <header class="topbar">
+        <span class="ai-brand-wrap"><img class="site-logo" src="assets/eba_logo.png" alt="EBA-07"><span class="ai-brand-caption">AI-GENERATED</span></span>
+        <a class="text-link" href="sources.html">Sources and credits</a>
+      </header>
+      <main class="landing-center">
+        <div class="landing-copy">
+          <h1>ABANDONED BUT<br>NOT FORGOTTEN</h1>
+          <p class="challenge-subtitle">Storytelling about NASA's Discarded Equipment on the Moon and Mars</p>
+          <p class="landing-description">A digital library to rediscover stories of space exploration.</p>
+          <button class="btn primary" id="enter-library" type="button">ENTER THE LIBRARY</button>
+          <p class="tagline">Explore a story. Discover a legacy.</p>
+        </div>
+      </main>
+      <p class="footer-note">An independent educational project by EBA-07.</p>
+    </section>
+    
+    <section class="viewport library" id="library" aria-labelledby="lib-title">
+      <header class="topbar">
+        <span class="ai-brand-wrap"><img class="site-logo" src="assets/eba_logo.png" alt="EBA-07"><span class="ai-brand-caption">AI-GENERATED</span></span>
+        <nav class="top-actions" aria-label="Library navigation">
+          <button class="text-link" data-action="archive" type="button">Research archive</button>
+          <a class="text-link" href="sources.html">Sources and credits</a>
+          <button class="text-link" data-action="home" type="button">Exit</button>
+        </nav>
+      </header>
+      <div class="lib-heading">
+        <p class="eyebrow">The Space Library</p>
+        <h2 id="lib-title">Ranger 7:<br>
+          <em>The End Is the Beginning</em>
+        </h2>
+        <p>Every mission has a story worth remembering. One book is ready to open.</p>
+      </div>
+      <div class="lib-room">
+        <div class="lib-glow" aria-hidden="true"></div>
+        <div class="lib-rows" id="library-shelves"></div>
+        <div class="lib-floor" aria-hidden="true"></div>
+        <div class="bonny-box" aria-label="EBA, your library guide">
+          <img class="bonny-png" src="assets/bonny_front.png" alt="EBA, the AI-generated violet robotic guide">
+          <span class="mascot-ai-mark">AI-GENERATED CHARACTER</span>
+          <div class="bonny-talk">
+            <div class="guide-heading">
+              <strong>EBA</strong>
+              <span>Your guide</span>
+            </div>
+            <p id="eba-dialogue" aria-live="polite">Hi, explorer! I'm EBA, your library guide. Do you know Ranger 7?</p>
+            <div id="eba-answers" class="eba-answers" aria-label="Choose your response"></div>
+            <details id="eba-menu" class="eba-question-menu">
+              <summary>Ask EBA a question</summary>
+              <div class="eba-question-options">
+                <button type="button" data-eba-topic="what">What was Ranger 7?</button>
+                <button type="button" data-eba-topic="crash">Why did it crash?</button>
+                <button type="button" data-eba-topic="success">Why was it important?</button>
+                <button type="button" data-eba-topic="book">How do I begin the story?</button>
+              </div>
+            </details>
+            <div class="eba-controls">
+              <span>Text</span>
+              <button id="eba-voice" class="text-link" type="button" aria-pressed="true">Voice on</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="library-foot">Other volumes are future stories. Only Ranger 7 is available in this edition.</p>
+    </section>
+    
+    <section class="viewport reader" id="reader" aria-label="Ranger 7 interactive book">
+      <header class="read-header">
+        <div class="left-controls">
+          <button class="text-link" id="reader-back" type="button">Library</button>
+          <button class="text-link" id="chapter-menu" type="button">Chapters</button>
+        </div>
+        <span class="book-name">RANGER 7</span>
+        <div class="right-controls">
+          <button class="text-link" id="read-aloud" type="button" aria-pressed="false">Read aloud</button>
+          <button class="text-link" id="theme-toggle" type="button" aria-pressed="false">Light pages</button>
+          <a class="text-link" href="sources.html?return=book">Sources</a>
+        </div>
+      </header>
+      <div class="read-progress" aria-hidden="true">
+        <i id="read-progress-inner"></i>
+      </div>
+      <div class="reader-info">
+        <span id="chapter-name"></span>
+        <span id="header-scene"></span>
+      </div>
+      <main class="book-stage" id="book-stage" aria-busy="false">
+        <article class="paper left" id="paper-left">
+          <span class="paper-folio" id="folio-left"></span>
+          <h2 id="scene-title" tabindex="-1"></h2>
+          <div class="story" id="scene-narration"></div>
+          <details class="fact-note" id="fact-note">
+            <summary>A closer look</summary>
+            <div id="scene-fact"></div>
+          </details>
+          <button class="source-note" id="scene-source" type="button">Sources for this scene</button>
+        </article>
+        <article class="paper right" id="paper-right" aria-label="Explore the scene">
+          <div class="scene-visual" id="scene-visual">
+            <div class="art-image" id="art-image"></div>
+            <div class="hotspot-layer" id="hotspot-layer"></div>
+          </div>
+          <div class="art-caption" id="art-caption"></div>
+          <div class="hotspot-list" id="hotspot-list" aria-label="Explore the illustration"></div>
+          <div id="scene-special"></div>
+        </article>
+      </main>
+      <nav class="book-nav" aria-label="Turn the page">
+        <button class="btn quiet" id="prev-scene" type="button">Previous page</button>
+        <span class="progress-text" id="scene-pagination" role="status" aria-live="polite"></span>
+        <button class="btn primary" id="next-scene" type="button">Next page</button>
+      </nav>
+      <p class="reading-hint">Explore the marked objects and the underlined words. Use the arrow keys to turn a page.</p>
+      <aside class="eba-cameo" id="eba-cameo" aria-label="A note from EBA" hidden>
+        <img src="assets/bonny_front.png" alt="EBA, AI-generated character">
+        <span class="cameo-ai-mark">AI-GENERATED</span>
+        <div class="cameo-bubble">
+          <div class="guide-heading">
+            <strong>EBA</strong>
+            <button class="close-icon" id="cameo-close" type="button" aria-label="Dismiss EBA">×</button>
+          </div>
+          <p id="cameo-message" aria-live="polite"></p>
+          <div id="cameo-choices" class="eba-answers"></div>
+        </div>
+      </aside>
+    </section>
+    
+    <section class="viewport archive" id="archive" aria-labelledby="archive-heading">
+      <header class="topbar">
+        <span class="ai-brand-wrap"><img class="site-logo" src="assets/eba_logo.png" alt="EBA-07"><span class="ai-brand-caption">AI-GENERATED</span></span>
+        <nav class="top-actions" aria-label="Archive navigation">
+          <a class="text-link" href="sources.html">Sources and credits</a>
+          <button class="text-link" id="archive-return" type="button">Return to reading</button>
+        </nav>
+      </header>
+      <main class="archive-main">
+        <p class="eyebrow">Behind the story</p>
+        <h1 id="archive-heading">The research archive</h1>
+        <p class="archive-intro">Explore the engineering, the historical record and the questions that remained after the mission.</p>
+        <a class="btn quiet" href="sources.html">View NASA and JPL references</a>
+        <label for="archive-search" class="search-label">Find a subject</label>
+        <input id="archive-search" class="archive-input" type="search" placeholder="Try cameras, batteries or 1964">
+        <div id="archive-panels" class="archive-panels"></div>
+      </main>
+    </section>
+    <section class="viewport mission-quiz" id="mission-quiz" aria-labelledby="mission-quiz-title">
+      <header class="topbar quiz-topbar">
+        <span class="ai-brand-wrap"><img class="site-logo" src="assets/eba_logo.png" alt="EBA-07, AI-generated emblem"><span class="ai-brand-caption">AI-GENERATED</span></span>
+        <nav class="top-actions" aria-label="Quiz navigation">
+          <button class="text-link" id="quiz-return-book" type="button">Return to the book</button>
+          <button class="text-link" id="quiz-exit" type="button">Library</button>
+          <a class="text-link" href="sources.html">Sources and credits</a>
+        </nav>
+      </header>
+      <main class="quiz-shell">
+        <div class="quiz-intro">
+          <p class="eyebrow">EBA-07 / Mission debrief</p>
+          <h1 id="mission-quiz-title">The Lunar Knowledge Test</h1>
+          <p>Ten questions. One space mission. How much did you discover about Ranger 7?</p>
+          <div class="quiz-settings">
+            <button class="btn quiet" id="quiz-voice" type="button" aria-pressed="true">EBA voice: on</button>
+            <span class="quiz-muted">Voice uses your browser's speech synthesizer; captions are always available.</span>
+          </div>
+        </div>
+        <div class="quiz-shell-grid">
+          <div class="quiz-guide-figure">
+            <div class="quiz-halo" aria-hidden="true"></div>
+            <img id="quiz-eba-image" src="assets/bonny_front.png" alt="EBA, the AI-generated robot guide" width="420" height="420">
+            <span class="quiz-ai-mark">AI-GENERATED ART</span>
+            <div class="quiz-dialogue" id="quiz-eba-dialogue" aria-live="polite">Ready for your final mission? I have ten questions for you!</div>
+          </div>
+          <section class="quiz-main-card" aria-label="Knowledge test">
+            <div class="quiz-meter"><span id="quiz-progress-text">Mission briefing</span><span id="quiz-score-label">10 questions</span></div>
+            <div class="quiz-progress-track" aria-hidden="true"><span id="quiz-progress-fill"></span></div>
+            <div id="quiz-content" aria-live="polite">
+              <h2>Ready, explorer?</h2>
+              <p>Answer ten questions based on the book. EBA will explain each answer. Earn at least 7 of 10 correct answers to pass.</p>
+              <button class="btn primary" id="quiz-start" type="button">Start the mission</button>
+            </div>
+          </section>
+        </div>
+        <p class="quiz-sources">Based on the documented Ranger missions, NASA/JPL historical records and the story's scientific explanations. <a href="sources.html">See sources</a>.</p>
+      </main>
+    </section>
+    <dialog class="chapter-drawer" id="drawer" aria-labelledby="chapter-title">
+      <div class="drawer-top">
+        <h2 id="chapter-title">Chapters</h2>
+        <button class="close-icon" id="close-drawer" type="button" aria-label="Close chapters">×</button>
+      </div>
+      <div id="chapter-list"></div>
+    </dialog>
+    <dialog class="note-modal" id="modal" aria-labelledby="modal-title">
+      <div class="modal-top">
+        <span class="eyebrow" id="modal-eyebrow">A closer look</span>
+        <button class="close-icon" id="modal-close" type="button" aria-label="Close explanation">×</button>
+      </div>
+      <h2 id="modal-title"></h2>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-source" id="modal-source"></div>
+      <button class="btn primary" id="modal-done" type="button">Back to the story</button>
+    </dialog>
+    <dialog class="approach" id="approach" aria-labelledby="approach-heading">
+      <div class="approach-stage" id="approach-stage">
+        <canvas id="moon-canvas" aria-label="An illustrative 3D Moon using modern NASA lunar data"></canvas>
+        <div class="approach-photos" id="approach-photos"></div>
+        <div class="approach-vignette" aria-hidden="true"></div>
+      </div>
+      <header class="approach-top">
+        <span id="approach-mode">Final approach</span>
+        <button class="text-link" id="close-approach" type="button">Return to the book</button>
+      </header>
+      <div class="approach-caption">
+        <p id="approach-time"></p>
+        <h2 id="approach-heading">The Moon fills the window.</h2>
+        <p id="approach-description"></p>
+        <p class="approach-provenance" id="approach-provenance"></p>
+      </div>
+      <footer class="approach-controls">
+        <button class="btn quiet" id="pause-approach" type="button">Pause</button>
+        <button class="btn quiet" id="skip-approach" type="button">Skip to the outcome</button>
+        <button class="btn primary" id="continue-approach" type="button" hidden>Continue the story</button>
+      </footer>
+    </dialog>
+    <noscript>
+      <p class="noscript-note">This interactive book needs JavaScript. You can still consult the <a href="sources.html">historical sources and credits</a>.</p>
+    </noscript>
+  </body>
+</html>
